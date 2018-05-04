@@ -1,0 +1,19 @@
+{
+  "name": "sport_center_back",
+  "version": "1.0.0",
+  "description": "Back-End del proyecto sport_center enfocado a la adminidtracion de las actividades de un centro deportivo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaulLlamas/SLP-SportCenter-BACK.git"
+  },
+  "author": "Saúl Llamas Parra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SaulLlamas/SLP-SportCenter-BACK/issues"
+  },
+  "homepage": "https://github.com/SaulLlamas/SLP-SportCenter-BACK#readme"
+}
