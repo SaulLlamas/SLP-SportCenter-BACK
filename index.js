@@ -21,6 +21,16 @@ const mongoose = require('mongoose');
 //Importación de app.config
 const conf = require('./config/app.config');
 
+
+//=======================================================
+//Importación de archivos de rutas
+//=======================================================
+//Archivo de rutas del usuario 
+const user_router = require('./routes/user.routes');
+//Archivo de rutas de las actividades
+const act_router = require('./routes/activiti.routes');
+
+
 //Inicialización de express en la constante app
 const app = express();
 
@@ -43,9 +53,15 @@ app.use(function(req, res, next) {
     //Configuracion de los tipos de origenes desde los que se permitira realizar peticiones
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept , Authorization");
     //Comfiguracion de los tipos de peticiones que se van a admitir
-    res.header("Access-Control-Allow-Methods","POST , GET , PUT , DELETE , OPTIONS")
+    res.header("Access-Control-Allow-Methods","POST , GET , PUT , DELETE , OPTIONS");
     next();
 });
+
+
+app.use('/user',user_router);
+
+app.use('/activiti',act_router);
+
 
 app.listen(conf.express.port,()=>{
     //El texto entre \x1b[32m y \x1b[0m saldra por consola de color verde
