@@ -6,9 +6,13 @@
 //=======================================================
 //Importación de dependencias de node
 //=======================================================
-
 //Importación de express
 const express = require('express');
+
+//=======================================================
+//Importación de los servicios utilizados
+//=======================================================
+const user_service = require('../service/user.service');
 
 
 
@@ -16,12 +20,12 @@ const express = require('express');
 const app = express();
 
 //Peticion get
-app.get("/",(request,response)=>{
-    response.status(200).json({
-        ok:true,
-        message:"archivo de rutas user"
-    })
-});
+app.get("/",user_service.getAllUsers);
 
+app.post("/",user_service.createUser);
+
+app.put("/:id",user_service.updateUser);
+
+app.delete("/:id",user_service.deleteUser);
 
 module.exports = app;

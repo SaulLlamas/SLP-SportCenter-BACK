@@ -7,7 +7,7 @@ module.exports.express={
 const mongoose={
     dns:'localhost',
     port:27017,
-    db:'slp-Hospitals',  
+    db:'slp-SportCenter',  
 } 
 
 
