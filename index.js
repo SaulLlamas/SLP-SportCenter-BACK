@@ -25,6 +25,8 @@ const conf = require('./config/app.config');
 //=======================================================
 //Importación de archivos de rutas
 //=======================================================
+//Archivos de rutas para el login
+const login_router = require('./routes/login.routes')
 //Archivo de rutas del usuario 
 const user_router = require('./routes/user.routes');
 //Archivo de rutas de las actividades
@@ -61,6 +63,8 @@ app.use(function(req, res, next) {
 app.use('/user',user_router);
 
 app.use('/activiti',act_router);
+
+app.use('/login',login_router);
 
 
 app.listen(conf.express.port,()=>{

@@ -14,7 +14,7 @@ const bcrypt = require('bcrypt');
 //Importación de los modelos utilizados
 //=======================================================
 //Importacion del modelo user
-const User = require('../models/user.models');
+const User = require('../models/user.model');
 
 /**
  * @description Obtiene todos los usuarios de la base de datos
@@ -111,6 +111,7 @@ module.exports.updateUser = (request,response)=>{
     //Utilizando findById de mongoose se busca el usuario que se quiere actualizar
     User.findById(id,(error,user_found)=>{
 
+        //Si ha habido un error al buscar el usuario para actualizar sera un error 500
         if (error){
             return response.status(500).json({
                 ok:false,
@@ -119,6 +120,7 @@ module.exports.updateUser = (request,response)=>{
             })
         } 
 
+        //Si no se encontro el usuario sera un error 400
         if (!user_found) {
             return response.status(400).json({
                 ok:false,
@@ -127,6 +129,8 @@ module.exports.updateUser = (request,response)=>{
         }
 
         if(user_found){
+
+            //Se comprueban los parametros que se han enviado en el body y se establece su valor a la propiedad correspondiente del usuario
 
             if(updateParams.email){
                 user_found.email = updateParams.email;
@@ -147,6 +151,7 @@ module.exports.updateUser = (request,response)=>{
          
             user_found.save((error,user_updated)=>{
 
+                //Si ha habido un error al guardar el usuario actualizado sera un error 400
                 if (error){
                     return response.status(400).json({
                         ok:false,
@@ -156,6 +161,11 @@ module.exports.updateUser = (request,response)=>{
                 }
 
                 if(user_updated) {
+
+                    //Por motivos de seguridad cuando se envia un usuario al Front no se debe de enviar el valor de su password
+                    //Por lo tanto la propiedad password del usuario que se va a enviar se establecera como null
+                    user_updated.password = null;
+
                     return response.status(200).json({
                         ok:true,
                         message:"El usuario se actualizo correctamente ",
@@ -182,6 +192,7 @@ module.exports.deleteUser = (request,response)=>{
 
     User.findByIdAndRemove(id,(error,user_deleted)=>{
 
+        //Si ha habido un error al borrar el usuario sera un error 500
         if(error){
             return response.status(500).json({
                 ok:false,
@@ -190,6 +201,7 @@ module.exports.deleteUser = (request,response)=>{
             })
         }
 
+        //Si no hay ususario es que no sea encontrado , entonces sera error 404
         if(!user_deleted){
             return response.status(404).json({
                 ok:false,
@@ -198,6 +210,12 @@ module.exports.deleteUser = (request,response)=>{
         }
 
         if(user_deleted){
+
+
+            //Por motivos de seguridad cuando se envia un usuario al Front no se debe de enviar el valor de su password
+            //Por lo tanto la propiedad password del usuario que se va a enviar se establecera como null
+            user_deleted.password = null;
+
             return response.status(200).json({
                 ok:true,
                 message:"El usuario se borro correctamente",
